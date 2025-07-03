@@ -5,6 +5,10 @@ import { io } from "socket.io-client";
 import Swal from "sweetalert2";
 import AIHelper from "./components/AIHelper/AIHelper";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
+import {
+  LeaderboardProvider,
+  useLeaderboard,
+} from "./contexts/LeaderboardContext";
 
 const renderFrom = [
   [null, null, null],
@@ -26,6 +30,9 @@ const App = () => {
   const [aiUsed, setAiUsed] = useState(false);
   const [aiSuggestion, setAiSuggestion] = useState(null);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+
+  // Move this INSIDE the component!
+  const { clearCache, fetchLeaderboard } = useLeaderboard();
 
   const checkWinner = () => {
     // row dynamic
@@ -82,9 +89,14 @@ const App = () => {
       // Notify server about game end
       if (socket && winner !== "draw") {
         socket.emit("gameEnded", { winner, roomId });
+
+        // Clear leaderboard cache so it fetches fresh data next time
+        if (winner === playingAs) {
+          clearCache();
+        }
       }
     }
-  }, [gameState]);
+  }, [gameState, socket, roomId, playingAs, clearCache]);
 
   const takePlayerName = async () => {
     const result = await Swal.fire({
@@ -131,11 +143,6 @@ const App = () => {
     setPlayingAs(data.playingAs);
     setOpponentName(data.opponentName);
     setRoomId(data.roomId);
-  });
-
-  socket?.on("aiSuggestion", function (data) {
-    setAiSuggestion(data.bestMove);
-    setAiUsed(data.aiUsed);
   });
 
   socket?.on("aiSuggestion", function (data) {
