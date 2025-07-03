@@ -30,6 +30,7 @@ export const LeaderboardProvider = ({ children }) => {
 
       try {
         const response = await fetch("https://2f2f.nashi.lat/api/leaderboard");
+        // const response = await fetch("http://localhost:3000/api/leaderboard");
         const data = await response.json();
 
         if (data.success) {
