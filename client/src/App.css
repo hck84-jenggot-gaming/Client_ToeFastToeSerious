@@ -1,0 +1,42 @@
+.main-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
+/* Game heading */
+.game-heading {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.water-background {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Square wrapper - THIS IS THE KEY FOR 3x3 GRID */
+.square-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  background-color: #333;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.countdown-text {
+  font-size: 18px;
+  color: #666;
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+}

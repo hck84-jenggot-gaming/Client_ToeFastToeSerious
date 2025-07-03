@@ -1,0 +1,81 @@
+/* AIHelper.css */
+.ai-helper-container {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.ai-helper-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ai-helper-btn:hover:not(.disabled) {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ai-helper-btn.used {
+  background-color: #607d8b;
+  cursor: not-allowed;
+}
+
+.ai-helper-btn.disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ai-helper-info {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Add this to your Square component CSS for AI suggestion highlight */
+.square.ai-suggested {
+  animation: pulse-glow 2s ease-in-out;
+  position: relative;
+}
+
+.square.ai-suggested::after {
+  content: "✨";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+  animation: sparkle 2s ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.8), 0 0 30px rgba(76, 175, 80, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
