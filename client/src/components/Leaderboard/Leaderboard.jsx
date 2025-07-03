@@ -1,31 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useLeaderboard } from "../../contexts/LeaderboardContext"; // Adjust path as needed
 import "./Leaderboard.css";
 
 const Leaderboard = ({ onBack }) => {
-  const [players, setPlayers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // Instead of managing state here, we get everything from Context!
+  const { players, loading, error, fetchLeaderboard } = useLeaderboard();
 
   useEffect(() => {
+    // Fetch leaderboard when component mounts
+    // It will use cached data if available and recent
     fetchLeaderboard();
-  }, []);
-
-  const fetchLeaderboard = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/leaderboard");
-      const data = await response.json();
-
-      if (data.success) {
-        setPlayers(data.data);
-      } else {
-        setError("Failed to load leaderboard");
-      }
-    } catch (err) {
-      setError("Error connecting to server");
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [fetchLeaderboard]);
 
   if (loading) {
     return (
